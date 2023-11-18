@@ -47,6 +47,12 @@
 
       // Call the function when the Google Maps API is loaded
       google.maps.event.addDomListener(window, "load", initGoogleMaps);
+
+      // Wait for the AR.js to initialize before activating the camera
+      document.querySelector("a-scene").addEventListener("loaded", function () {
+        // Activate the camera
+        document.querySelector("a-scene").setAttribute("arjs", "debugUIEnabled: false;");
+      });
     </script>
   </body>
 </html>
