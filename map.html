@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>AR with Google Maps</title>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <!-- Add the Google Maps API script -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+  </head>
+  <body style="margin: 0px; overflow: hidden;">
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 4x4;"
+    >
+      <!-- Add an empty entity to hold the camera position -->
+      <a-entity id="cameraContainer"></a-entity>
+
+      <!-- Add a marker for the specified location -->
+      <a-marker id="location-marker">
+        <!-- Use a-box for the cube -->
+        <a-box position="0 1 0" color="red"></a-box>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      // Function to initialize Google Maps and set the location
+      function initGoogleMaps() {
+        // Specify the latitude and longitude
+        var latitude = 26.474925;
+        var longitude = 73.114546;
+
+        // Update the camera position with the specified location
+        var cameraContainer = document.getElementById("cameraContainer");
+        cameraContainer.setAttribute("position", `${longitude} 1 ${-latitude}`);
+
+        // Update the marker position with the specified location
+        var locationMarker = document.getElementById("location-marker");
+        locationMarker.setAttribute("position", `${longitude} 1 ${-latitude}`);
+      }
+
+      // Call the function when the Google Maps API is loaded
+      google.maps.event.addDomListener(window, "load", initGoogleMaps);
+    </script>
+  </body>
+</html>
